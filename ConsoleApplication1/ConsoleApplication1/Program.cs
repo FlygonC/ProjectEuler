@@ -19,8 +19,10 @@ namespace ConsoleApplication1
             //Console.WriteLine(EulerFunctions.IsPrime(29));
             //EulerFunctions.LargestPrimeFactor(600851475143);
 
-            //Console.WriteLine(EulerFunctions.IsPalindromNumber(3123));
-            EulerFunctions.LargestPalindromProduct(3);
+            //Console.WriteLine(EulerFunctions.IsPalindromeNumber(3123));
+            //EulerFunctions.LargestPalindromeProduct(3);
+
+            EulerFunctions.SmallestMultiple(1, 20);
             Console.ReadKey(true);
         }
     }
@@ -119,13 +121,13 @@ namespace ConsoleApplication1
             }*/
         }
 
-        public static bool IsPrime( long a_number)
+        public static bool IsPrime(long n)
         {
-            if (a_number == 2) { return false; }
-            if (a_number % 2 == 0) { return false; }
-            for (long j = 3; j * j <= a_number; j += 2)
+            if (n == 2) { return false; }
+            if (n % 2 == 0) { return false; }
+            for (long j = 3; j * j <= n; j += 2)
             {
-                if (a_number % j == 0)
+                if (n % j == 0)
                 {
                     return false;
                 }
@@ -150,7 +152,7 @@ namespace ConsoleApplication1
             }
         }
 
-        public static bool IsPalindromNumber(long n)
+        public static bool IsPalindromeNumber(long n)
         {
             string number = n.ToString();
             for (int i = 0; i < number.Count() / 2; i++)
@@ -162,7 +164,7 @@ namespace ConsoleApplication1
             }
             return true;
         }
-        public static void LargestPalindromProduct(int digits)
+        public static void LargestPalindromeProduct(int digits)
         {
             int startNumber = 0;
             int endNumber = 0;
@@ -179,7 +181,7 @@ namespace ConsoleApplication1
             {
                 for (int j = startNumber; j > endNumber; j--)
                 {
-                    if (IsPalindromNumber(i * j))
+                    if (IsPalindromeNumber(i * j))
                     {
                         //Console.WriteLine(i + " * " + j + " = " + (i * j));
                         if (currentPalindrom < (i * j))
@@ -190,6 +192,35 @@ namespace ConsoleApplication1
                 }
             }
             Console.WriteLine(currentPalindrom);
+        }
+
+        public static void SmallestMultiple(int rangeMin, int rangeMax)
+        {
+            int i = rangeMax - 1;
+            //bool end = false;
+            while (true)
+            {
+                i++;
+                bool found = true;
+                for (int t = rangeMin; t <= rangeMax; t++)
+                {
+                    if (i % t != 0)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    Console.WriteLine(i);
+                    return;
+                }
+
+                if (i >= 1000000000)
+                {
+                    return;
+                }
+            }
         }
     }
 }
