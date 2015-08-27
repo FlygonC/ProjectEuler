@@ -112,5 +112,16 @@ namespace ConsoleApplication1
                 Console.Write(i + ", ");
             }*/
         }
+
+        public static void LargestPrimeFactor(int a_number)
+        {
+            for (int i = a_number; i > 0; i--)
+            {
+                for (int j = 1; j < i; j++)
+                {
+                    //find if i is prime
+                }
+            }
+        }
     }
 }
