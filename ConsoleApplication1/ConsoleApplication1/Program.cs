@@ -14,7 +14,13 @@ namespace ConsoleApplication1
             Console.ReadKey(true);
             //EulerFunctions.MultiplesOf3And5(1000);
 
-            EulerFunctions.EvenFibonacciNumbers(4000000);
+            //EulerFunctions.EvenFibonacciNumbers(4000000);
+
+            //Console.WriteLine(EulerFunctions.IsPrime(29));
+            //EulerFunctions.LargestPrimeFactor(600851475143);
+
+            //Console.WriteLine(EulerFunctions.IsPalindromNumber(3123));
+            EulerFunctions.LargestPalindromProduct(3);
             Console.ReadKey(true);
         }
     }
@@ -113,15 +119,77 @@ namespace ConsoleApplication1
             }*/
         }
 
-        public static void LargestPrimeFactor(int a_number)
+        public static bool IsPrime( long a_number)
         {
-            for (int i = a_number; i > 0; i--)
+            if (a_number == 2) { return false; }
+            if (a_number % 2 == 0) { return false; }
+            for (long j = 3; j * j <= a_number; j += 2)
             {
-                for (int j = 1; j < i; j++)
+                if (a_number % j == 0)
                 {
-                    //find if i is prime
+                    return false;
                 }
             }
+            return true;
+        }
+        public static void LargestPrimeFactor(long a_number)
+        {
+            for (long i = (long)Math.Sqrt((double)a_number); i > 0; i--)//i is candidate for answer, starting from test number going down
+            {
+                if (i % 2 != 0)//i cannot be even
+                {
+                    if (IsPrime(i))
+                    {
+                        if (a_number % i == 0)
+                        {
+                            Console.WriteLine("The largest prime factor of " + a_number + " is " + i);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static bool IsPalindromNumber(long n)
+        {
+            string number = n.ToString();
+            for (int i = 0; i < number.Count() / 2; i++)
+            {
+                if (number[i] != number[number.Count() - (i + 1)])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public static void LargestPalindromProduct(int digits)
+        {
+            int startNumber = 0;
+            int endNumber = 0;
+            for (int x = 0; x < digits; x++)
+            {
+                if (x == digits - 1)
+                {
+                    endNumber = startNumber;
+                }
+                startNumber += ((int)Math.Pow(10, x)) * 9;
+            }
+            int currentPalindrom = 0;
+            for (int i = startNumber; i > endNumber; i--)
+            {
+                for (int j = startNumber; j > endNumber; j--)
+                {
+                    if (IsPalindromNumber(i * j))
+                    {
+                        //Console.WriteLine(i + " * " + j + " = " + (i * j));
+                        if (currentPalindrom < (i * j))
+                        {
+                            currentPalindrom = (i * j);
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(currentPalindrom);
         }
     }
 }
